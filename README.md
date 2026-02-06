@@ -1,4 +1,3 @@
-Shopping Cart Application
 Project Overview
 The Shopping Cart Application is a full-stack web application built using Spring Boot, Thymeleaf, and MySQL.  
 It allows users to browse products, add them to a cart, complete checkout, and receive an email notification after successful payment.
