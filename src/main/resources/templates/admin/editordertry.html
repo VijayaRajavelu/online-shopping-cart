@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+ <table>
+								<tr th:each="ord:${orders}">
+									<th scope="row">[[${ord.orderId}]]</th>
+
+									<td>Name : [[${ord.orderAddress.firstName+'
+										'+ord.orderAddress.lastName}]]<br> Email :
+										[[${ord.orderAddress.email}]]<br> MobNo :
+										[[${ord.orderAddress.mobileNo}]]<br> Address :
+										[[${ord.orderAddress.address}]]<br> City :
+										[[${ord.orderAddress.city}]]<br> State :
+										[[${ord.orderAddress.state}]], [[${ord.orderAddress.pincode}]]
+
+									</td>
+
+
+									<td>[[${ord.orderDate}]]</td>
+									<td>[[${ord.product.title}]]</td>
+
+									<td>Quantity : [[${ord.quantity}]]<br>Price :
+										[[${ord.price}]] <br> Total Price : [[${ord.quantity *
+										ord.price}]]
+									</td>
+									<td>[[${ord.status}]]</td>
+
+									<td>
+										<form action="/admin/update-order-status" method="post">
+											<div class="row">
+												<div class="col">
+													<select class="form-control" name="st">
+														<option value="" disabled selected>--Select One--</option>
+														<option value="1">In Progress</option>
+														<option value="2">Order Received</option>
+														<option value="3">Product Packed</option>
+														<option value="4">Out of Delivery</option>
+														<option value="5">Delivered</option>
+														<option value="6">Cancelled</option>
+
+													</select>
+												</div>
+												<input th:value="${ord.id}" name="id" type="hidden">
+
+
+												<div class="col">
+
+													<th:block
+														th:if="${ord.status=='Cancelled' || ord.status=='Delivered'}">
+														<button class="btn btn-primary bt-sm col disabled">Update</button>
+													</th:block>
+
+													<th:block
+														th:unless="${ord.status=='Cancelled' || ord.status=='Delivered'}">
+														<button class="btn btn-primary bt-sm col">Update</button>
+													</th:block>
+
+												</div>
+											</div>
+										</form>
+
+									</td>
+
+								</tr>
+								</table>
+								
+</body>
+</html>

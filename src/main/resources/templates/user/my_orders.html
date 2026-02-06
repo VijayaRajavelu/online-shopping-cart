@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+		<div class="container mt-5 p-5">
+
+			<div class="row">
+			<p class="text-center fs-3">My Orders</p>
+			
+			<th:block th:if="${session.succMsg}">
+						<p class="text-success fw-bold text-center">[[${session.succMsg}]]</p>
+						<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+						</th:block>
+						
+						<th:block th:if="${session.errorMsg}">
+						<p class="text-danger fw-bold text-center">[[${session.errorMsg}]]</p>
+						<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>						
+						</th:block>
+			
+				<div class="col-md-12">
+				<div class="card">
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th scope="col">Order Id</th>
+								<th scope="col">Date</th>								
+								<th scope="col">Product Details</th>
+								
+								<th scope="col">Price</th>
+								<th scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="ord:${orders}">
+								<th scope="row">[[${ord.orderId}]]</th>
+								<td>[[${ord.orderDate}]]</td>
+								<td>[[${ord.product.title}]]</td>
+								
+								<td>Quantity : [[${ord.quantity}]]<br>Price :  [[${ord.price}]] <br> Total Price : [[${ord.quantity * ord.price}]]</td>
+								<td>[[${ord.status}]]</td>
+																
+								<td>
+								<th:block th:if="${ord.status!='Cancelled'}">
+								<a th:href="@{'/user/update-status?id='+${ord.id}+'&st=6'}" class="btn btn-sm btn-danger">Cancel</a>
+								</th:block>
+								
+								<th:block th:unless="${ord.status!='Cancelled'}">
+								<a href="#" class="btn btn-sm btn-danger disabled">Cancel</a>
+								</th:block>
+								
+								
+								</td>
+							
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				</div>
+			</div>
+
+		</div>
+
+	</section>
+</body>
+</html>
